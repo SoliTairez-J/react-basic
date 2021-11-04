@@ -3,11 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// การสร้าง Component
+// function HelloComponent(){
+//   return <h1>Hello Component</h1>
+// }
+// การสร้าง Class Component
+// class HelloComponent extends React.Component{
+//   render(){
+//     return <h1>สวัสดี Component แรก</h1>
+//   }
+// }
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  < App />,
   document.getElementById('root')
 );
 
