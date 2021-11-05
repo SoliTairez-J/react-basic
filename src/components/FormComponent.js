@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import './FormComponent.css'
-const FormComponent = ()=>{
-
+import { v4 as uuidv4} from 'uuid';
+const FormComponent = (props)=>{
     const [title,setTitle] = useState('')
     const [amount,setAmount] = useState(0)
+    const [formValid,setFormValid] = useState(false)
 
     const inputTitle = (event)=>{
         setTitle(event.target.value)
@@ -14,13 +15,18 @@ const FormComponent = ()=>{
     const saveItem = (event)=>{
         event.preventDefault()
         const itemData = {
+            id:uuidv4(),
             title:title,
             amount:Number(amount)
         }
-        console.log(itemData);
+        props.onAddItem(itemData)
         setTitle('')
         setAmount(0)
     }
+    useEffect(()=>{
+        const checkData = title.trim().length > 0 && amount !== 0
+        setFormValid(checkData)
+    },[title,amount])
     return(
         <div>
             <form onSubmit={saveItem}>
@@ -33,7 +39,7 @@ const FormComponent = ()=>{
                     <input type="number" placeholder="(+ รายรับ , - รายจ่าย)" onChange={inputAmount} value={amount}/>
                 </div>
                 <div>
-                    <button type="submit" className="btn">เพิ่มข้อมูล</button>
+                    <button type="submit" className="btn" disabled={!formValid}>เพิ่มข้อมูล</button>
                 </div>
             </form>
         </div>

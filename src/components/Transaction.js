@@ -1,19 +1,21 @@
+import { useContext } from "react/cjs/react.development";
+import DataContext from "../data/DataContext";
 import Item from "./Item";
 import './Transaction.css'
-import { v4 as uuidv4} from 'uuid';
 
-const Transaction = ()=>{
-    const data = [
-        {title:'ค่ารักษาพยาบาล',amount:2000},
-        {title:'ค่าน้ำมัน',amount:5000},
-        {title:'ค่าที่พัก',amount:4000}
-    ]
+const Transaction = (props)=>{
+    const {items} = props
+    const {income,expense} = useContext(DataContext)
     return (
+      <div>
       <ul className='item-list'>
-        {data.map((element)=>{
-            return <Item {...element} key = {uuidv4()}/>
+        {items.map((element)=>{
+            return <Item {...element} key = {element.id}/>
         })}
       </ul>
+      <p>รายรับ : {income}</p>
+      <p>รายจ่าย : {expense}</p>
+      </div>
     );
   }
 
